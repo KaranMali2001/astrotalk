@@ -1,0 +1,31 @@
+model Call {
+  id              String       @id @default(uuid()) @db.Uuid
+  userId          String       @db.Uuid
+  professionalId  String       @db.Uuid
+  callState       CallState
+  callDuration    Int          @default(0)
+  totalCharge     Int          @default(0)
+  callStart       DateTime?
+  callEnd         DateTime?
+  rate            Int
+  type            CallType
+  maxCallDuration Int
+  agoraChannelId  String
+  deletedAt       DateTime?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  reasonToReject  String?
+  professional    Professional @relation("ProfessionalCalls", fields: [professionalId], references: [id])
+  user            User         @relation("UserCalls", fields: [userId], references: [id])
+  feedback        CallFeedback?
+
+  @@index([userId])
+  @@index([professionalId])
+  @@index([callState])
+  @@index([callStart])
+  @@index([createdAt])
+  @@index([deletedAt])
+  @@index([userId, createdAt])
+  @@index([professionalId, createdAt])
+  @@map("calls")
+}

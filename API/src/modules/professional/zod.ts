@@ -1,0 +1,40 @@
+import z from 'zod';
+
+export const loginRequestSchema = z.object({
+  phoneNumber: z.string().length(10, 'Phone number must be exactly 10 digits'),
+});
+export const verifyOtpRequestSchema = z.object({
+  otp: z.string(),
+  requestId: z.string(),
+  phoneNumber: z.string().length(10, 'Phone number must be exactly 10 digits'),
+});
+export const registerProfSchema = z.object({
+  phoneNumber: z.string(),
+  name: z.string(),
+  email: z.string().optional(),
+  about_me: z.string().optional(),
+  requestId: z.string(),
+  otp: z.string(),
+});
+export const onboardingRequestSchema = z.object({
+  name: z.string().min(1, 'Name is required').optional(),
+  username: z.string().min(1, 'Username is required').optional(),
+  dateOfBirth: z.string().refine(
+    date => {
+      const birthDate = new Date(date);
+      const today = new Date();
+      const age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+      return age > 18 || (age === 18 && monthDiff > 0) || (age === 18 && monthDiff === 0 && today.getDate() >= birthDate.getDate());
+    },
+    { message: 'You must be at least 18 years old' }
+  ),
+  language: z.array(z.string()).min(1, 'At least one language is required'),
+  gender: z.enum(['male', 'female']),
+  voiceRecording: z.string().optional(),
+  categoryIds: z.array(z.string()).min(1, 'At least one category is required'),
+});
+export type loginRequest = z.infer<typeof loginRequestSchema>;
+export type verifyOtpRequest = z.infer<typeof verifyOtpRequestSchema>;
+export type registerProf = z.infer<typeof registerProfSchema>;
+export type onboardingRequest = z.infer<typeof onboardingRequestSchema>;

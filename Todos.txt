@@ -1,0 +1,2 @@
+1) configure Agora Rest Api to invalide token when one party disconnect the call (and when we process the txn)
+2) call values for prof is wrong it went from 51 to 63 

@@ -1,0 +1,22 @@
+model CallFeedback {
+  id            String       @id @default(uuid()) @db.Uuid
+  callId        String       @unique @db.Uuid
+  userId        String       @db.Uuid
+  professionalId String      @db.Uuid
+  rating        Int
+  comment       String?      @db.VarChar(1000)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  call          Call         @relation(fields: [callId], references: [id])
+  user          User         @relation(fields: [userId], references: [id])
+  professional  Professional @relation(fields: [professionalId], references: [id])
+
+  @@index([callId])
+  @@index([professionalId])
+  @@index([userId])
+  @@index([createdAt])
+  @@map("call_feedbacks")
+}
+
+

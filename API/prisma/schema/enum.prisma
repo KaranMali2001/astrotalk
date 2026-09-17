@@ -1,0 +1,45 @@
+enum UserRole {
+  BOT
+  USER
+  PROFESSIONAL
+  ADMIN
+}
+
+enum CallState {
+  CALL_INITIATED
+  CALL_START
+  CALL_END
+  CALL_CANCELLED
+  BILLING_PROCESSED
+  CALL_REJECTED
+  CHAT_REJECTED
+  CHAT_CANCELLED
+}
+
+enum TransactionType {
+  WALLET_CREDIT
+  CALL_CHARGE
+  REFUND
+  ADMIN_ADJUSTMENT
+  COMMISSION
+  SESSION_REWARD
+}
+
+enum CallType {
+  CHAT
+  AUDIO_CALL
+  VIDEO_CALL
+}
+
+enum TransactionStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+enum LogLevel {
+  ERROR
+  WARN
+  INFO
+  DEBUG
+}

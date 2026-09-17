@@ -1,0 +1,29 @@
+{
+  "name": "ludo-ws-server",
+  "scripts": {
+    "dev": "cp .env.development .env && tsx watch src/server.ts",
+    "build": "cp .env.production .env && node esbuild.config.js --prod",
+    "start": "node dist/server.mjs",
+    "format": "prettier --write \"src/**/*.ts\""
+  },
+  "dependencies": {
+    "axios": "^1.11.0",
+    "dotenv": "^17.2.1",
+    "ioredis": "^5.7.0",
+    "jsonwebtoken": "^9.0.2",
+    "pino": "^9.7.0",
+    "pino-caller": "^4.0.0",
+    "pino-pretty": "^13.0.0",
+    "redis": "^5.7.0",
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.52.0",
+    "zod": "^4.0.14"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^20.11.17",
+    "esbuild": "^0.20.0",
+    "esbuild-node-externals": "^1.18.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.4.0"
+  }
+}

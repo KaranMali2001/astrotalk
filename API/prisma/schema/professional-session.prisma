@@ -1,0 +1,18 @@
+model ProfessionalSession {
+  id              String       @id @default(uuid()) @db.Uuid
+  professionalId  String       @db.Uuid
+  startTime       DateTime     @default(now())
+  endTime         DateTime?
+  durationMinutes Int          @default(0)
+  rewardAmount    Int          @default(0)
+  isActive        Boolean      @default(true)
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  sessionToken    String
+  professional    Professional @relation(fields: [professionalId], references: [id], onDelete: Cascade)
+
+  @@index([professionalId])
+  @@index([isActive])
+  @@index([startTime])
+  @@map("professional_sessions")
+}

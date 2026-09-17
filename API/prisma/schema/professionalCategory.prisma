@@ -1,0 +1,15 @@
+model ProfessionalCategory {
+  id             String       @id @default(uuid()) @db.Uuid
+  professionalId String       @db.Uuid
+  categoryId     String       @db.Uuid
+  deletedAt      DateTime?
+  createdAt      DateTime     @default(now())
+  category       Category     @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  professional   Professional @relation(fields: [professionalId], references: [id], onDelete: Cascade)
+
+  @@unique([professionalId, categoryId])
+  @@index([professionalId])
+  @@index([categoryId])
+  @@index([deletedAt])
+  @@map("professional_categories")
+}

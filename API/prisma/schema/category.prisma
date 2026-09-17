@@ -1,0 +1,16 @@
+model Category {
+  id                     String                 @id @default(uuid()) @db.Uuid
+  name                   String                 @unique
+  description            String?
+  isActive               Boolean                @default(true)
+  deletedAt              DateTime?
+  createdAt              DateTime               @default(now())
+  updatedAt              DateTime               @updatedAt
+  professionalCategories ProfessionalCategory[]
+
+
+  @@index([isActive])
+  @@index([name])
+  @@index([deletedAt])
+  @@map("categories")
+}

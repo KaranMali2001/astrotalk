@@ -1,0 +1,30 @@
+model User {
+  id                String    @id @default(uuid()) @db.Uuid
+  phoneNumber       String    @unique
+  username          String?
+  dateOfBirth       DateTime?
+  avatarUrl         String?   @db.VarChar(2048)
+  gender            String?   @db.VarChar(10)
+  language          String?   @db.VarChar(20)
+  relationshipGoals String[]  @default([])
+
+  isActive           Boolean       @default(true)
+  deletedAt          DateTime?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+  lastLoginAt        DateTime?
+  isInCall           Boolean       @default(false)
+  onboardingComplete Boolean       @default(false)
+  callsAsUser        Call[]        @relation("UserCalls")
+  logs               Log[]
+  transactions       Transaction[]
+  sessions           UserSession[]
+  wallet             Wallet?
+  feedbacks          CallFeedback[]
+
+  @@index([phoneNumber])
+  @@index([isActive])
+  @@index([deletedAt])
+  @@index([createdAt])
+  @@map("users")
+}

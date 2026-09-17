@@ -1,0 +1,45 @@
+model Professional {
+  id          String    @id @default(uuid()) @db.Uuid
+  phoneNumber String    @unique
+  name        String
+  email       String?
+  dateOfBirth DateTime?
+  gender      String?   @db.VarChar(10)
+
+  voiceRecording String? @db.Text
+
+  isActive               Boolean                @default(true)
+  isVerified             Boolean                @default(false)
+  isInCall               Boolean                @default(false)
+  onboardingComplete     Boolean                @default(false)
+  perMinuteRateChat      Int                    @default(100)
+  perMinuteRateCall      Int                    @default(100)
+  totalCallDuration      Int                    @default(0)
+  totalChats             Int                    @default(0)
+  rating                 Decimal?               @db.Decimal(3, 2)
+  aboutMe                String?
+  deletedAt              DateTime?
+  createdAt              DateTime               @default(now())
+  updatedAt              DateTime               @updatedAt
+  lastLogin              DateTime?
+  commissionRate         Decimal                @default(0.2)
+  perMinuteRateVideoCall Int
+  callsAsProfessional    Call[]                 @relation("ProfessionalCalls")
+  logs                   Log[]
+  professionalCategories ProfessionalCategory[]
+  professionalSessions   ProfessionalSession[]
+  transactions           Transaction[]
+  sessions               UserSession[]
+  wallet                 Wallet?
+  feedbacks              CallFeedback[]
+
+  @@index([phoneNumber])
+  @@index([isActive])
+  @@index([isVerified])
+  @@index([isInCall])
+  @@index([deletedAt])
+  @@index([perMinuteRateChat])
+  @@index([perMinuteRateCall])
+  @@index([rating])
+  @@map("professionals")
+}

@@ -1,0 +1,12 @@
+model TempOtp {
+  id          String   @id @default(uuid()) @db.Uuid
+  phoneNumber String
+  requestId   String
+  expiresAt   DateTime @default(dbgenerated("(now() + '00:10:00'::interval)"))
+  createdAt   DateTime @default(now())
+
+  @@unique([requestId, phoneNumber])
+  @@index([expiresAt])
+  @@index([phoneNumber])
+  @@map("temp_otps")
+}
